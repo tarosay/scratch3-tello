@@ -1,99 +1,141 @@
 const dgram = require('dgram');
 
 class TelloProcessor {
-    initialize () {
-        this.queue = []; // command queue
+    initialize() {
+        this.queue = [];
+        this.data = {};
+        this.executing = false;
+        this.executingCommand = null;
+        this.flying = false;
 
         this.client = dgram.createSocket('udp4');
         this.server = dgram.createSocket('udp4');
 
-        this.client.bind({
-            address: '0.0.0.0',
-            port: 40001,
-            exclusive: true
+        // コマンド送信用ソケット
+        this.client.bind(40001, '0.0.0.0', () => {
+            this.send('command'); // SDK モード突入
         });
 
-        this.flying = false;
-        this.send('command');
-
-        this.client.on('message', (message, remote) => {
+        // コマンド応答処理
+        this.client.on('message', (message) => {
+            clearTimeout(this.commandTimeout); // 応答があればタイムアウト解除
             const readableMessage = message.toString();
-            
-            // Previous command executed
+
             if (readableMessage === 'ok') {
                 this.executing = false;
 
                 if (this.executingCommand === 'takeoff') this.flying = true;
                 if (this.executingCommand === 'land') this.flying = false;
 
-                // Dequeue
                 this.queue.shift();
-
-                // Send next element
                 this.inquire();
             } else if (readableMessage.includes('error')) {
                 this.executing = false;
                 this.flying = false;
 
-                // Dequeue
                 this.queue.shift();
-
-                // Send next element
                 this.inquire();
             }
         });
 
-        // Tello State
-        this.server.on('message', (message, remote) => {
-            // remote: { address: '192.168.10.1', family: 'IPv4', port: 8889, size: 127 }
-            // message: <Buffer 70 69 74 63 68 ... >
+        // ドローンステータス受信
+        this.server.on('message', (message) => {
             const readableMessage = message.toString();
             this.data = {};
             for (const e of readableMessage.slice(0, -1).split(';')) {
-                this.data[e.split(':')[0]] = e.split(':')[1];
+                const [key, value] = e.split(':');
+                if (key && value) {
+                    this.data[key] = value;
+                }
             }
         });
 
         this.server.bind(8890, '0.0.0.0');
+
+        // エラー検知で再接続
+        this.client.on('error', (err) => {
+            console.error('Client error:', err);
+            this.handleReconnect();
+        });
+        this.server.on('error', (err) => {
+            console.error('Server error:', err);
+            this.handleReconnect();
+        });
     }
-    
 
-    request (cmd) {
-        // Enqueue
+    request(cmd) {
+        if (!this.flying && cmd === 'takeoff') {
+            this.queue.push('command');
+        }
         this.queue.push(cmd);
-
         this.inquire();
     }
 
-    state () {
+    state() {
         return this.data;
     }
 
-    // If executing command is nothing and waiting queue has some element, send first command to Tello
-    inquire () {
+    inquire() {
         if (!this.executing && this.queue.length > 0) {
             this.send(this.queue[0]);
         }
     }
 
-    send (cmd) {
+    send(cmd) {
         const msg = Buffer.from(cmd);
-        // While grounding, `command`, `mon`, `mdirection 2` and `takeoff` are only executable
+
+        // 地上時に許可されないコマンドはスキップ
         if (!this.flying && cmd !== 'command' && cmd !== 'mon' && cmd !== 'mdirection 2' && cmd !== 'takeoff') {
             this.queue.shift();
+            this.inquire();
             return;
         }
+
         this.executing = true;
         this.executingCommand = cmd;
-        this.client.send(msg, 0, msg.length, 8889, '192.168.10.1', (err, bytes) => {
-            if (err) throw err;
+
+        this.client.send(msg, 0, msg.length, 8889, '192.168.10.1', (err) => {
+            if (err) {
+                console.error('Send error:', err);
+                this.handleReconnect(cmd);
+            } else {
+                this.startCommandTimeout(cmd);
+            }
         });
     }
 
-    resetQueue () {
+    startCommandTimeout(cmd) {
+        clearTimeout(this.commandTimeout);
+        this.commandTimeout = setTimeout(() => {
+            console.log(`No response for "${cmd}", reconnecting...`);
+            this.handleReconnect(cmd);
+        }, 2000); // 2秒応答なしで再接続
+    }
+
+    handleReconnect(cmd) {
+        this.reconnect();
+        if (cmd) {
+            this.queue.unshift(cmd); // 元のコマンドを再度先頭に戻す
+        }
+        this.inquire();
+    }
+
+    reconnect() {
+        try {
+            if (this.client) this.client.close();
+            if (this.server) this.server.close();
+        } catch (e) {
+            console.error('Error closing sockets:', e);
+        }
+        this.resetQueue();
+        this.initialize(); // 再初期化して command を送る
+    }
+
+    resetQueue() {
         this.queue = [];
         this.flying = false;
         this.executing = false;
+        this.executingCommand = null;
     }
 }
 
