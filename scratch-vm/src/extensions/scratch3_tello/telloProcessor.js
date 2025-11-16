@@ -1,4 +1,4 @@
-// Modified by Minao Yamamoto (2025)
+// Modified by tarosay (2025)
 // Original licenses apply; see LICENSE file.
 const dgram = require('dgram');
 

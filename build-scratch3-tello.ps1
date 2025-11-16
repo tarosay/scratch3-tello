@@ -1,5 +1,5 @@
 # build-scratch3-tello.ps1
-# Created by Minao Yamamoto (2025)
+# Created by tarosay (2025)
 # Windows build helper script for this fork.
 # Original project licenses apply; see LICENSE.
 

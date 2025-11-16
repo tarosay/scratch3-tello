@@ -1,3 +1,63 @@
+# scratch3-tello (Fork by @tarosay)
+
+このリポジトリは **kebhr/scratch3-tello** のフォークです。  
+本フォークでは以下の変更・追加を行っています：
+
+- Windows ユーザ向けの PowerShell ビルドスクリプト  
+  **`build-scratch3-tello.ps1`** を追加  
+- npm 依存関係エラー回避のため  
+  `react-responsive@4.1.0` に固定  
+- Electron アプリの `npm run build` までを Windows 環境で一括実行できるように調整  
+- Node / npm の動作確認バージョンを明記
+
+オリジナルプロジェクトはこちら：  
+https://github.com/kebhr/scratch3-tello
+
+---
+
+## 📦 Verified Build Environment (Windows)
+
+PowerShell ビルドスクリプトは、以下のバージョンで動作確認しています：
+
+```
+Node.js : v16.20.0
+npm     : 8.19.4
+```
+
+> npm v7 以降は peerDependencies が厳格なため  
+> `react-responsive@5.x` がインストールエラーになります。  
+> 本フォークでは `react-responsive@4.1.0` を強制指定して解決しています。
+
+---
+
+## 🚀 How to Build (Windows / PowerShell) — *追加情報*
+
+Windows ユーザは、以下の PowerShell スクリプトを使用することで  
+依存関係の問題なくビルドが行えます：
+
+```powershell
+git clone https://github.com/tarosay/scratch3-tello.git
+cd scratch3-tello
+
+./build-scratch3-tello.ps1
+```
+
+成果物は次に生成されます：
+
+```
+scratch-desktop/dist/
+```
+
+※ Linux/macOS は従来どおり `build.sh` を使用してください  
+（元 README の「How to build」セクション参照）
+
+---
+
+# ここから下は **オリジナル README** の内容です  
+（原文を保持し、必要な整合性のみ注記）
+
+---
+
 <div align="center">
   <img src="https://user-images.githubusercontent.com/42484226/180014410-6c3868e4-f8ee-44a8-9a87-b89490061e03.png" alt="scratch3-tello Let's fly Tello with Scratch 3.0!" />
 </div>
@@ -48,6 +108,10 @@ $ wget https://raw.githubusercontent.com/kebhr/scratch3-tello/master/build.sh
 $ chmod +x build.sh
 $ ./build.sh
 ```
+
+> **補足（フォークより）:**  
+> Windows ユーザは `build.sh` ではなく、上部に記載した  
+> **`build-scratch3-tello.ps1`** を使用することを推奨します。
 
 ## How to run
 ```bash
