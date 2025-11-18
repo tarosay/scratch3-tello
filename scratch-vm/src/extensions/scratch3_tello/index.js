@@ -61,7 +61,7 @@ const message = {
         'it': 'seleziona [SSID]',
         'lv': 'izvēlēties [SSID]',
         'ua': 'вибрати [SSID]',
-    }    
+    },
     up: {
         'ja': '上に [X]cm 上がる',
         'ja-Hira': 'うえに [X] センチあがる',
