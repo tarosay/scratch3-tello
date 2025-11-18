@@ -139,6 +139,11 @@ class TelloProcessor {
         this.executing = false;
         this.executingCommand = null;
     }
+
+    selectDroneBySsid(ssid) {
+        console.log('selectDroneBySsid called with:', ssid);
+    }
+
 }
 
 module.exports = TelloProcessor;

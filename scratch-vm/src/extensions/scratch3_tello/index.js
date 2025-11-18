@@ -48,6 +48,20 @@ const message = {
         'lv': 'nolaisties',
         'ua': 'посадити',
     },
+    selectDrone: {
+        'ja': '[SSID]を選ぶ',
+        'ja-Hira': '[SSID]をえらぶ',
+        'en': 'select [SSID]',
+        'ru': 'выбрать [SSID]',
+        'fr': 'sélectionner [SSID]',
+        'de': '[SSID] auswählen',
+        'bg': 'изберете [SSID]',
+        'zh-tw': '選擇 [SSID]',
+        'zh-cn': '选择 [SSID]',
+        'it': 'seleziona [SSID]',
+        'lv': 'izvēlēties [SSID]',
+        'ua': 'вибрати [SSID]',
+    }    
     up: {
         'ja': '上に [X]cm 上がる',
         'ja-Hira': 'うえに [X] センチあがる',
@@ -89,7 +103,7 @@ const message = {
         'it': 'muovi a sinistra di [X] cm',
         'lv': 'pa kreisi [X] cm',
         'ua': 'ліворуч [X] см',
-        
+
     },
     right: {
         'ja': '右に [X]cm 動く',
@@ -213,7 +227,7 @@ const message = {
         'bg': 'активиране на Mission Pad',
         'zh-tw': '啟動挑戰卡',
         'zh-cn': '启动挑战卡',
-        'it' : 'attiva la "Mission Pad"',
+        'it': 'attiva la "Mission Pad"',
         'lv': 'iespējot "Mission Pad"',
         'ua': 'увімкнути "Mission Pad"',
     },
@@ -269,7 +283,7 @@ const message = {
         'bg': 'изтриване на командите',
         'zh-tw': '清除命令佇列',
         'zh-cn': '清除命令队列',
-        'it' : 'elimina la sequenza di comandi',
+        'it': 'elimina la sequenza di comandi',
         'lv': 'notīrīt komandu rindu',
         'ua': 'очистити чергу команд',
     },
@@ -283,7 +297,7 @@ const message = {
         'bg': 'накланяне',
         'zh-tw': '俯仰',
         'zh-cn': '俯仰',
-        'it' : 'lancio',
+        'it': 'lancio',
         'lv': 'slīpums',
         'ua': 'тангаж',
     },
@@ -297,7 +311,7 @@ const message = {
         'bg': 'завъртане',
         'zh-tw': '翻滾',
         'zh-cn': '翻滚',
-        'it' : 'rotolare',
+        'it': 'rotolare',
         'lv': 'rotācija',
         'ua': 'крен',
     },
@@ -325,7 +339,7 @@ const message = {
         'bg': 'скорост x',
         'zh-tw': 'x方向的速度',
         'zh-cn': 'x方向的速度',
-        'it' : 'velocità sull\'asse x',
+        'it': 'velocità sull\'asse x',
         'lv': 'x ātrums',
         'ua': 'швидкість x',
     },
@@ -339,7 +353,7 @@ const message = {
         'bg': 'скорост y',
         'zh-tw': 'y方向的速度',
         'zh-cn': 'y方向的速度',
-        'it' : 'velocità sull\'asse y',
+        'it': 'velocità sull\'asse y',
         'lv': 'y ātrums',
         'ua': 'швидкість y',
     },
@@ -353,7 +367,7 @@ const message = {
         'bg': 'скорост z',
         'zh-tw': 'z方向的速度',
         'zh-cn': 'z方向的速度',
-        'it' : 'velocità sull\'asse z',
+        'it': 'velocità sull\'asse z',
         'lv': 'z ātrums',
         'ua': 'швидкість z',
     },
@@ -395,7 +409,7 @@ const message = {
         'bg': 'заряд на батерията',
         'zh-tw': '剩餘電量',
         'zh-cn': '剩余电量',
-        'it' : 'livello della batteria',
+        'it': 'livello della batteria',
         'lv': 'atlikusi baterija',
         'ua': 'заряд батареї',
     },
@@ -409,7 +423,7 @@ const message = {
         'bg': 'височина според барометър',
         'zh-tw': '氣壓計偵測高度',
         'zh-cn': '气压计检测高度',
-        'it' : 'altitudine barometrica',
+        'it': 'altitudine barometrica',
         'lv': 'augstums pēc barometra',
         'ua': 'висота за барометром',
     },
@@ -423,7 +437,7 @@ const message = {
         'bg': 'време на полета',
         'zh-tw': '飛行時間',
         'zh-cn': '飞行时间',
-        'it' : 'tempo di volo',
+        'it': 'tempo di volo',
         'lv': 'lidojuma laiks',
         'ua': 'час польоту',
     },
@@ -437,7 +451,7 @@ const message = {
         'bg': 'ускорение x',
         'zh-tw': 'x方向的加速度',
         'zh-cn': 'x方向的加速度',
-        'it' : 'accelerazione sull\'asse x',
+        'it': 'accelerazione sull\'asse x',
         'lv': 'paātrinājums x',
         'ua': 'прискорення по осі x',
     },
@@ -451,7 +465,7 @@ const message = {
         'bg': 'ускорение y',
         'zh-tw': 'y方向的加速度',
         'zh-cn': 'y方向的加速度',
-        'it' : 'accelerazione sull\'asse y',
+        'it': 'accelerazione sull\'asse y',
         'lv': 'paātrinājums y',
         'ua': 'прискорення по осі y',
     },
@@ -465,7 +479,7 @@ const message = {
         'bg': 'ускорение z',
         'zh-tw': 'z方向的加速度',
         'zh-cn': 'z方向的加速度',
-        'it' : 'accelerazione sull\'asse z',
+        'it': 'accelerazione sull\'asse z',
         'lv': 'paātrinājums z',
         'ua': 'прискорення по осі z',
     }
@@ -477,7 +491,7 @@ const message = {
  * @constructor
  */
 class Scratch3Tello {
-    constructor (runtime) {
+    constructor(runtime) {
         /**
          * The runtime instantiating this block package.
          * @type {Runtime}
@@ -492,16 +506,16 @@ class Scratch3Tello {
     }
 
 
-    _getText (key) {
+    _getText(key) {
         return message[key][this.locale] || message[key]['en'];
     }
 
     /**
      * @returns {object} metadata for this extension and its blocks.
      */
-    getInfo () {
+    getInfo() {
         const currentLocale = formatMessage.setup().locale;
-        if (Object.keys(message).filter((key) => {return currentLocale in message[key]}).length > 0) {
+        if (Object.keys(message).filter((key) => { return currentLocale in message[key] }).length > 0) {
             this.locale = currentLocale;
         } else {
             this.locale = 'en';
@@ -522,6 +536,17 @@ class Scratch3Tello {
                     opcode: 'land',
                     text: this._getText('land'),
                     blockType: BlockType.COMMAND
+                },
+                {
+                    opcode: 'selectDrone',
+                    text: this._getText('selectDrone'),
+                    blockType: BlockType.COMMAND,
+                    arguments: {
+                        SSID: {
+                            type: ArgumentType.STRING,
+                            defaultValue: 'TELLO-XXXXXX'
+                        }
+                    }
                 },
                 '---',
                 {
@@ -888,7 +913,7 @@ class Scratch3Tello {
                                     'bg': 'напред',
                                     'zh-tw': '前',
                                     'zh-cn': '前',
-                                    'it' : 'avanti',
+                                    'it': 'avanti',
                                     'lv': 'uz priekšu',
                                     'ua': 'вперед',
                                 };
@@ -908,7 +933,7 @@ class Scratch3Tello {
                                     'bg': 'назад',
                                     'zh-tw': '後',
                                     'zh-cn': '后',
-                                    'it' : 'indietro',
+                                    'it': 'indietro',
                                     'lv': 'atpakaļ',
                                     'ua': 'назад',
                                 };
@@ -928,7 +953,7 @@ class Scratch3Tello {
                                     'bg': 'наляво',
                                     'zh-tw': '左',
                                     'zh-cn': '左',
-                                    'it' : 'sinistra',
+                                    'it': 'sinistra',
                                     'lv': 'pa kreisi',
                                     'ua': 'ліворуч',
                                 };
@@ -948,7 +973,7 @@ class Scratch3Tello {
                                     'bg': 'надясно',
                                     'zh-tw': '右',
                                     'zh-cn': '右',
-                                    'it' : 'destra',
+                                    'it': 'destra',
                                     'lv': 'pa labi',
                                     'ua': 'праворуч',
                                 };
@@ -1005,7 +1030,7 @@ class Scratch3Tello {
                                     'bg': 'случаен',
                                     'zh-tw': '亂數',
                                     'zh-cn': '随机',
-                                    'it' : 'casuale',
+                                    'it': 'casuale',
                                     'lv': 'nejaušs',
                                     'ua': 'випадковий',
                                 };
@@ -1025,7 +1050,7 @@ class Scratch3Tello {
                                     'bg': 'най-близък',
                                     'zh-tw': '最近的',
                                     'zh-cn': '最近的',
-                                    'it' : 'il più vicino',
+                                    'it': 'il più vicino',
                                     'lv': 'tuvākais',
                                     'ua': 'найближчий',
                                 };
@@ -1039,139 +1064,144 @@ class Scratch3Tello {
         };
     }
 
-    getState () {
+    getState() {
         setInterval(() => {
             const state = this.telloProcessor.state();
             this.state = state;
         }, 100);
     }
 
-    takeoff () {
+    takeoff() {
         this.telloProcessor.request('takeoff');
     }
 
-    land () {
+    land() {
         this.telloProcessor.request('land');
     }
 
-    up (args) {
+    selectDrone(args) {
+        const ssid = args.SSID;
+        this.telloProcessor.selectDroneBySsid(ssid);
+    }
+
+    up(args) {
         this.telloProcessor.request(`up ${Cast.toString(args.X)}`);
     }
 
-    down (args) {
+    down(args) {
         this.telloProcessor.request(`down ${Cast.toString(args.X)}`);
     }
 
-    left (args) {
+    left(args) {
         this.telloProcessor.request(`left ${Cast.toString(args.X)}`);
     }
 
-    right (args) {
+    right(args) {
         this.telloProcessor.request(`right ${Cast.toString(args.X)}`);
     }
 
-    forward (args) {
+    forward(args) {
         this.telloProcessor.request(`forward ${Cast.toString(args.X)}`);
     }
 
-    back (args) {
+    back(args) {
         this.telloProcessor.request(`back ${Cast.toString(args.X)}`);
     }
 
-    cw (args) {
+    cw(args) {
         this.telloProcessor.request(`cw ${Cast.toString(args.X)}`);
     }
 
-    ccw (args) {
+    ccw(args) {
         this.telloProcessor.request(`ccw ${Cast.toString(args.X)}`);
     }
 
-    flip (args) {
+    flip(args) {
         this.telloProcessor.request(`flip ${args.DIRECTION}`);
     }
 
-    go (args) {
+    go(args) {
         this.telloProcessor.request(`go ${Cast.toString(args.X)} ${Cast.toString(args.Y)} ${Cast.toString(args.Z)} ${Cast.toString(args.SPEED)}`);
     }
 
-    curve (args) {
+    curve(args) {
         this.telloProcessor.request(`curve ${Cast.toString(args.X1)} ${Cast.toString(args.Y1)} ${Cast.toString(args.Z1)} ${Cast.toString(args.X2)} ${Cast.toString(args.Y2)} ${Cast.toString(args.Z2)} ${Cast.toString(args.SPEED)}`);
     }
 
-    enableMissionPad () {
+    enableMissionPad() {
         this.telloProcessor.request(`mon`);
         this.telloProcessor.request(`mdirection 2`);
     }
 
-    eduGo (args) {
+    eduGo(args) {
         this.telloProcessor.request(`go ${Cast.toString(args.X)} ${Cast.toString(args.Y)} ${Cast.toString(args.Z)} ${Cast.toString(args.SPEED)} ${args.MID}`);
     }
 
-    eduCurve (args) {
+    eduCurve(args) {
         this.telloProcessor.request(`curve ${Cast.toString(args.X1)} ${Cast.toString(args.Y1)} ${Cast.toString(args.Z1)} ${Cast.toString(args.X2)} ${Cast.toString(args.Y2)} ${Cast.toString(args.Z2)} ${Cast.toString(args.SPEED)} ${args.MID}`);
     }
 
-    eduJump (args) {
+    eduJump(args) {
         this.telloProcessor.request(`jump ${Cast.toString(args.X)} ${Cast.toString(args.Y)} ${Cast.toString(args.Z)} ${Cast.toString(args.SPEED)} ${Cast.toString(args.YAW)} ${args.MID1} ${args.MID2}`);
     }
 
-    clearQueue () {
+    clearQueue() {
         this.telloProcessor.resetQueue();
     }
 
-    pitch () {
+    pitch() {
         return this.state.pitch;
     }
 
-    roll () {
+    roll() {
         return this.state.roll;
     }
 
-    yaw () {
+    yaw() {
         return this.state.yaw;
     }
 
-    vgx () {
+    vgx() {
         return this.state.vgx;
     }
 
-    vgy () {
+    vgy() {
         return this.state.vgy;
     }
 
-    vgz () {
+    vgz() {
         return this.state.vgz;
     }
 
-    tof () {
+    tof() {
         return this.state.tof;
     }
 
-    height () {
+    height() {
         return this.state.h;
     }
 
-    bat () {
+    bat() {
         return this.state.bat;
     }
 
-    baro () {
+    baro() {
         return this.state.baro;
     }
 
-    time () {
+    time() {
         return this.state.time;
     }
 
-    agx () {
+    agx() {
         return this.state.agx;
     }
 
-    agy () {
+    agy() {
         return this.state.agy;
     }
 
-    agz () {
+    agz() {
         return this.state.agz;
     }
 }
