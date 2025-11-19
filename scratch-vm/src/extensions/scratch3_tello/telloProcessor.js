@@ -1,6 +1,7 @@
 // Modified by tarosay (2025)
 // Original licenses apply; see LICENSE file.
 const dgram = require('dgram');
+const cp = require("child_process");
 
 class TelloProcessor {
     initialize() {
@@ -142,8 +143,125 @@ class TelloProcessor {
 
     selectDroneBySsid(ssid) {
         console.log('selectDroneBySsid called with:', ssid);
+
+        try {
+            const info = this.getWiFiInfo();
+            console.log('wifi info:', info);
+
+            // すでに接続済みなら何もしないで成功扱いで return true
+            if (info.connected && info.ssid === ssid) {
+                console.log('Already connected to target SSID. No action.');
+                return true;
+            }
+
+            // まずは周囲にその SSID が見えているかチェック
+            const visible = this.isSsidVisible(ssid);
+            if (!visible) {
+                console.warn(`SSID "${ssid}" is not visible. Cannot connect.`);
+                return false; // ここで「接続できない」と判断
+            }
+
+            // 見えているので接続を試みる
+            console.log(`Connecting to SSID: ${ssid}`);
+
+            const ok = this.connectToWifi(ssid);
+
+            if (!ok) {
+                console.warn(`Failed to connect to "${ssid}" within timeout.`);
+                return false;
+            }
+            console.log(`Connected to ${info.ssid}.`);
+            return true;
+
+        } catch (err) {
+            console.error('selectDroneBySsid error:', err);
+            return false;
+        }
     }
 
+    connectToWifi(ssid) {
+        try {
+            // 1. 接続開始
+            const connectCmd = `netsh wlan connect name="${ssid}" ssid="${ssid}"`;
+            cp.execSync(connectCmd, { encoding: 'utf8', timeout: 5000 });
+
+            // 2. 接続完了を待つ（最大 20 秒）
+            const maxWaitMs = 20000;
+            //const intervalMs = 500;
+            const deadline = Date.now() + maxWaitMs;
+
+            while (Date.now() < deadline) {
+                try {
+                    const info = this.getWiFiInfo();
+
+                    if (info.connected && info.ssid === ssid) {
+                        return true;
+                    }
+                } catch (e) {
+                    // show interfaces が失敗することはまれ
+                }
+
+                // 1秒待つ
+                const oneSec = Date.now() + 1000;
+                while (Date.now() < oneSec) {
+                    Math.imul(0, 0);
+                }
+            }
+            console.log('timeout');
+            return false;
+
+        } catch (e) {
+            // connect コマンド自体の失敗
+            console.log(e);
+            return false;
+        }
+    }
+
+    isSsidVisible(ssid) {
+        try {
+            const stdout = cp.execSync(
+                'netsh wlan show networks mode=bssid',
+                { encoding: 'utf8', timeout: 2000 }
+            );
+
+            // SSID n : xxxx をすべて取得
+            const ssidLines = stdout.match(/SSID\s+\d+\s*:\s*(.+)/g) || [];
+            const ssids = ssidLines.map(line =>
+                line.replace(/SSID\s+\d+\s*:\s*/, '').trim()
+            );
+
+            // 引数の SSID が含まれているか判定
+            const visible = ssids.includes(targetSsid);
+
+            return { visible };
+
+        } catch (e) {
+            return { visible: false, error: e };
+        }
+    }
+
+    getWiFiInfo() {
+        try {
+            const stdout = cp.execSync(
+                'netsh wlan show interfaces',
+                { encoding: 'utf8', timeout: 2000 }
+            );
+
+            //console.log(stdout);
+            // 正常時パース
+            const ssidMatch = stdout.match(/SSID\s*:\s*(.+)/);
+            const ssid = ssidMatch ? ssidMatch[1].trim() : null;
+            const connected =
+                /State\s*:\s*connected/i.test(stdout) ||
+                /状態\s*:\s*接続/.test(stdout) ||
+                !!ssid;
+
+            return { connected, ssid };
+        } catch (e) {
+            // e.stderr や e.stdout などで詳細確認可能
+            return { connected: false, error: e };
+        }
+    }
 }
 
 module.exports = TelloProcessor;

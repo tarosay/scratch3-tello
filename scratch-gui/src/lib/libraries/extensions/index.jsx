@@ -63,7 +63,7 @@ export default [
         insetIconURL: telloInsetIconURL,
         description: (
             <FormattedMessage
-                defaultMessage="Tello with Scratch 3.0-Toin"
+                defaultMessage="Tello with Scratch 3.0-toin"
                 description="Description for the 'Tello' extension"
                 id="gui.extension.tello.description"
             />
