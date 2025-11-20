@@ -230,10 +230,9 @@ class TelloProcessor {
             const ssids = ssidLines.map(line =>
                 line.replace(/SSID\s+\d+\s*:\s*/, '').trim()
             );
-
+            //console.log(ssids);
             // 引数の SSID が含まれているか判定
-            const visible = ssids.includes(targetSsid);
-
+            const visible = ssids.includes(ssid);
             return visible;
 
         } catch (e) {
