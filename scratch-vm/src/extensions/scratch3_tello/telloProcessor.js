@@ -163,7 +163,7 @@ class TelloProcessor {
             }
 
             // 見えているので接続を試みる
-            console.log(`Connecting to SSID: ${ssid}`);
+            console.log(`Now, connecting to SSID: ${ssid}`);
 
             const ok = this.connectToWifi(ssid);
 
@@ -171,7 +171,7 @@ class TelloProcessor {
                 console.warn(`Failed to connect to "${ssid}" within timeout.`);
                 return false;
             }
-            console.log(`Connected to ${info.ssid}.`);
+            console.log(`Success, connected to ${ssid}.`);
             return true;
 
         } catch (err) {
@@ -186,8 +186,8 @@ class TelloProcessor {
             const connectCmd = `netsh wlan connect name="${ssid}" ssid="${ssid}"`;
             cp.execSync(connectCmd, { encoding: 'utf8', timeout: 5000 });
 
-            // 2. 接続完了を待つ（最大 20 秒）
-            const maxWaitMs = 20000;
+            // 2. 接続完了を待つ（最大 6 秒）
+            const maxWaitMs = 6000;
             //const intervalMs = 500;
             const deadline = Date.now() + maxWaitMs;
 
@@ -202,8 +202,8 @@ class TelloProcessor {
                     // show interfaces が失敗することはまれ
                 }
 
-                // 1秒待つ
-                const oneSec = Date.now() + 1000;
+                // 500ms待つ
+                const oneSec = Date.now() + 500;
                 while (Date.now() < oneSec) {
                     Math.imul(0, 0);
                 }
