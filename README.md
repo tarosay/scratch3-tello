@@ -3,12 +3,14 @@
 このリポジトリは **kebhr/scratch3-tello** のフォークです。  
 本フォークでは以下の変更・追加を行っています：
 
-- Windows ユーザ向けの PowerShell ビルドスクリプト  
-  **`build-scratch3-tello.ps1`** を追加  
-- npm 依存関係エラー回避のため  
-  `react-responsive@4.1.0` に固定  
-- Electron アプリの `npm run build` までを Windows 環境で一括実行できるように調整  
+- Windows ユーザ向けの PowerShell ビルドスクリプト
+  **`build-scratch3-tello.ps1`** を追加
+- npm 依存関係エラー回避のため
+  `react-responsive@4.1.0` に固定
+- Electron アプリの `npm run build` までを Windows 環境で一括実行できるように調整
 - Node / npm の動作確認バージョンを明記
+- Tello の SSID を指定して接続できたかどうかを返す boolean ブロック
+  **`connectTo`** を追加し、Scratch から直接 Wi-Fi 接続できるように変更
 
 オリジナルプロジェクトはこちら：  
 https://github.com/kebhr/scratch3-tello
@@ -76,13 +78,13 @@ I am seeking sponsors on [Patreon](https://www.patreon.com/scratch3_tello) to co
 
 ### Instruction
 1. Download the binary.
-2. Connect to Tello's wifi.
-3. Start the app.
-4. Activate Tello extension.
+2. Start the app.
+3. Activate Tello extension.
+4. 新しい boolean ブロック **`connectTo`** を使って、接続したい Tello の SSID を指定し Wi-Fi に接続（成功すると `true`、失敗すると `false` を返します）。
 
 **NOTE:**
-- If you are having trouble connecting to Tello, close the app, restart Tello and start the app again.  
-- Connect to Tello before launching the app. If you connect to Tello after the app is launched, the extension will **not** be able to send commands to Tello.
+- If you are having trouble connecting to Tello, close the app, restart Tello and start the app again.
+- Scratch 内から接続できない場合は、従来どおりアプリを起動する前に手動で Tello に接続してください。
 - If the drone does not take off after sending the `takeoff` command, use the `clear command queue` block.
 
 ## Supported languages
