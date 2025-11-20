@@ -150,12 +150,13 @@ class TelloProcessor {
 
             // すでに接続済みなら何もしないで成功扱いで return true
             if (info.connected && info.ssid === ssid) {
-                console.log('Already connected to target SSID. No action.');
+                console.warn('Already connected to target SSID. No action.');
                 return true;
             }
 
             // まずは周囲にその SSID が見えているかチェック
             const visible = this.isSsidVisible(ssid);
+            console.log(visible);
             if (!visible) {
                 console.warn(`SSID "${ssid}" is not visible. Cannot connect.`);
                 return false; // ここで「接続できない」と判断
@@ -207,12 +208,12 @@ class TelloProcessor {
                     Math.imul(0, 0);
                 }
             }
-            console.log('timeout');
+            console.warn('timeout');
             return false;
 
         } catch (e) {
             // connect コマンド自体の失敗
-            console.log(e);
+            console.error(e);
             return false;
         }
     }
@@ -233,10 +234,10 @@ class TelloProcessor {
             // 引数の SSID が含まれているか判定
             const visible = ssids.includes(targetSsid);
 
-            return { visible };
+            return visible;
 
         } catch (e) {
-            return { visible: false, error: e };
+            return false;
         }
     }
 
