@@ -78,7 +78,7 @@ Remove-Item -Recurse -Force ".\scratch3-tello"
 # --- ビルド (Electron) ---
 
 Push-Location scratch-desktop
-#npm run build
+npm run build
 #Pop-Location
 
 Write-Host "=== Done. Built artifacts are in scratch-desktop\dist ==="
