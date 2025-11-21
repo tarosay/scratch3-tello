@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Scratch3 Tello ブロック解説</title>
+  <style>
+    body {
+      font-family: "Noto Sans JP", system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      line-height: 1.7;
+      margin: 0;
+      padding: 0;
+      color: #222;
+      background: #f8f9fb;
+    }
+    header {
+      background: linear-gradient(120deg, #00a9e0, #005ea5);
+      color: #fff;
+      padding: 48px 24px 32px;
+      text-align: center;
+    }
+    header h1 {
+      margin: 0 0 12px;
+      font-size: 2.2rem;
+      letter-spacing: 0.03em;
+    }
+    header p {
+      margin: 0;
+      font-size: 1.05rem;
+    }
+    main {
+      max-width: 960px;
+      margin: -24px auto 0;
+      padding: 0 20px 48px;
+    }
+    section {
+      background: #fff;
+      border-radius: 12px;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.08);
+      padding: 24px;
+      margin-top: 28px;
+    }
+    h2 {
+      margin-top: 0;
+      color: #005ea5;
+      font-size: 1.4rem;
+    }
+    h3 {
+      color: #005ea5;
+      margin-bottom: 8px;
+      font-size: 1.1rem;
+    }
+    ul {
+      padding-left: 1.2rem;
+    }
+    .block-list {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 18px;
+      list-style: none;
+      padding-left: 0;
+    }
+    .block-list li {
+      border: 1px solid #e4ebf3;
+      border-radius: 10px;
+      padding: 14px;
+      background: #fdfefe;
+    }
+    .images ul {
+      list-style: disc;
+    }
+    .tip {
+      background: #e7f5ff;
+      border-left: 4px solid #00a9e0;
+      padding: 12px 14px;
+      border-radius: 8px;
+      margin: 12px 0;
+      color: #0b4f6c;
+    }
+    footer {
+      text-align: center;
+      color: #666;
+      font-size: 0.9rem;
+      padding: 24px 0 12px;
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>Scratch3 Tello ブロックの使い方</h1>
+    <p>DJI Tello を Scratch3.0 から操作するための拡張ブロックの一覧と使い方をまとめました。</p>
+  </header>
+
+  <main>
+    <section>
+      <h2>準備</h2>
+      <ul>
+        <li>パソコンと Tello を同じ Wi-Fi（Tello のアクセスポイント）に接続します。</li>
+        <li>Scratch3 Tello 拡張を追加し、ブロックパレットに「Tello」カテゴリが表示されていることを確認します。</li>
+      </ul>
+      <div class="tip">接続が不安定な場合は、Tello を再起動し、近距離でテストしてください。</div>
+      <div class="tip">「接続する（につなぐ）」ブロックは <strong>真偽値</strong> ブロックとして動作し、接続が成功すると <strong>true</strong> を返します。実行直後に条件判定に入れることで、接続できたかを即座にチェックできます。</div>
+    </section>
+
+    <section>
+      <h2>基本ブロック</h2>
+      <ul class="block-list">
+        <li><strong>接続する</strong><br> Tello と接続を開始します。<em>真偽値</em> ブロックなので、<code>true</code> が返ってきたら接続完了です。</li>
+        <li><strong>離陸</strong><br> Tello が自動で離陸しホバリングします。</li>
+        <li><strong>着陸</strong><br> 安全に着陸させます。バッテリー残量が少ない時は早めに実行してください。</li>
+        <li><strong>前／後／左／右／上／下 に動く (cm)</strong><br> 指定した距離だけ直線移動します。20〜500 の範囲が目安です。</li>
+        <li><strong>時計回り／反時計回りに回る (°)</strong><br> 機体をその場で回転させます。角度は 1〜360° を推奨。</li>
+        <li><strong>速度を (cm/s) にする</strong><br> 移動コマンドのスピードを設定します。</li>
+      </ul>
+    </section>
+
+    <section>
+      <h2>ステータス系ブロック</h2>
+      <ul class="block-list">
+        <li><strong>バッテリー %</strong><br> 現在のバッテリー残量を取得します。低い場合は飛行を控えます。</li>
+        <li><strong>高度 (cm)</strong><br> 離陸地点からの高さを取得します。</li>
+        <li><strong>温度 (℃)</strong><br> モーター温度を取得します。高温時は休ませてください。</li>
+        <li><strong>速度 (cm/s)</strong><br> 現在の移動速度を取得します。</li>
+      </ul>
+    </section>
+
+    <section>
+      <h2>よく使うプログラム例</h2>
+      <h3>1. 基本フライト</h3>
+      <ul>
+        <li>「接続する」→「離陸」→「前に動く 50cm」→「時計回りに回る 90°」→「着陸」</li>
+      </ul>
+
+      <h3>2. 四角形に飛行する</h3>
+      <ul>
+        <li>繰り返し 4 回、前へ 80cm → 右回転 90° を組み合わせて、矩形飛行を実現します。</li>
+      </ul>
+
+      <h3>3. 安全確認ルーチン</h3>
+      <ul>
+        <li>飛行前に「バッテリー %」が 30 以上かチェックし、条件を満たさない場合は「着陸」に分岐します。</li>
+      </ul>
+    </section>
+
+    <section class="images">
+      <h2>用意してほしい画像リスト</h2>
+      <p>こちらで画像を作成いただくために、具体的な素材の種類を列挙しています。比率は 16:9 または 4:3 程度、解像度は横 1200px 以上が目安です。</p>
+      <ul>
+        <li>
+          <strong>Scratch エディター全体（Tello 拡張を追加済み）</strong><br>
+          Tello カテゴリがブロックパレットに表示されていることが分かる全体キャプチャ。
+        </li>
+        <li>
+          <strong>Tello ブロック一覧の拡大</strong><br>
+          ブロックパレットの Tello セクションをアップで撮影。各ブロックの名称が読める解像度だと助かります。
+        </li>
+        <li>
+          <strong>基本フライトのスクリプト例</strong><br>
+          「接続する → 離陸 → 前に動く 50cm → 時計回りに回る 90° → 着陸」を組んだプロジェクト画面。
+        </li>
+        <li>
+          <strong>四角形飛行のスクリプト例</strong><br>
+          「繰り返し 4 回」の中で前進と 90° 回転を組み合わせたプログラムのキャプチャ。
+        </li>
+        <li>
+          <strong>安全確認スクリプト例</strong><br>
+          「バッテリー %」で 30 以上を判定し、条件を満たさなければ「着陸」する分岐を含むプログラム。
+        </li>
+        <li>
+          <strong>Tello 本体の写真</strong><br>
+          室内での静止状態と、可能なら低高度でホバリングしている様子の 2 枚。
+        </li>
+      </ul>
+      <h3>提供済みのファイル名メモ</h3>
+      <ul>
+        <li>1-1: image01</li>
+        <li>1-2: image02-1 / image02-2 / image02-3</li>
+        <li>2-3: image03</li>
+        <li>2-4: image04</li>
+        <li>2-5: image05</li>
+        <li>3-6〜8: （ハードウェア系は未提供）</li>
+        <li>4-9: image09</li>
+      </ul>
+    </section>
+  </main>
+
+  <footer>
+    Scratch3 Tello ガイド｜DJI Tello を安全・楽しくプログラミング
+  </footer>
+</body>
+</html>
