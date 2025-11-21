@@ -76,8 +76,11 @@ Copy-Item -Path ".\scratch3-tello\*" -Destination ".\" -Recurse -Force
 Remove-Item -Recurse -Force ".\scratch3-tello"
 
 # --- ビルド (Electron) ---
-
 Push-Location scratch-desktop
+npm run fetch
+# ビルド用環境変数
+$env:BUILD_MODE = "dist"
+$env:STATIC_PATH = "./static"
 npm run build
 #Pop-Location
 
