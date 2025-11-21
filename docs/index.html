@@ -29,67 +29,67 @@
       font-size: 1.05rem;
     }
     main {
-      max-width: 960px;
+      max-width: 1100px;
       margin: -24px auto 0;
-      padding: 0 20px 48px;
+      padding: 0 20px 60px;
     }
     section {
       background: #fff;
-      border-radius: 12px;
+      border-radius: 14px;
       box-shadow: 0 10px 30px rgba(0,0,0,0.08);
-      padding: 24px;
+      padding: 26px;
       margin-top: 28px;
     }
     h2 {
       margin-top: 0;
       color: #005ea5;
-      font-size: 1.4rem;
+      font-size: 1.5rem;
     }
     h3 {
       color: #005ea5;
-      margin-bottom: 8px;
-      font-size: 1.1rem;
+      margin-bottom: 12px;
+      font-size: 1.15rem;
     }
     ul {
       padding-left: 1.2rem;
     }
-    .block-list {
+    .two-col {
       display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      grid-template-columns: 1.1fr 0.9fr;
+      gap: 24px;
+      align-items: start;
+    }
+    .guide-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
       gap: 18px;
+      margin-top: 16px;
       list-style: none;
       padding-left: 0;
     }
-    .block-list li {
+    .guide-card {
       border: 1px solid #e4ebf3;
-      border-radius: 10px;
-      padding: 14px;
+      border-radius: 12px;
+      padding: 16px;
       background: #fdfefe;
-    }
-    .images ul {
-      list-style: disc;
-    }
-    .image-grid {
       display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
-      gap: 18px;
-      margin-top: 20px;
+      grid-template-columns: 1fr;
+      gap: 12px;
     }
-    .image-card {
+    .guide-card strong { color: #0b4f6c; }
+    .figure-card {
       border: 1px solid #e4ebf3;
-      border-radius: 10px;
+      border-radius: 12px;
       overflow: hidden;
       background: #fdfefe;
       box-shadow: 0 6px 18px rgba(0,0,0,0.05);
-      display: flex;
-      flex-direction: column;
     }
-    .image-card img {
+    .figure-card img {
       width: 100%;
       height: auto;
       display: block;
     }
-    .image-card figcaption {
+    .figure-card figcaption {
       padding: 12px 14px 14px;
       font-size: 0.95rem;
       color: #333;
@@ -109,6 +109,9 @@
       font-size: 0.9rem;
       padding: 24px 0 12px;
     }
+    @media (max-width: 900px) {
+      .two-col { grid-template-columns: 1fr; }
+    }
   </style>
 </head>
 <body>
@@ -119,130 +122,114 @@
 
   <main>
     <section>
-      <h2>準備</h2>
-      <ul>
-        <li>パソコンと Tello を同じ Wi-Fi（Tello のアクセスポイント）に接続します。</li>
-        <li>Scratch3 Tello 拡張を追加し、ブロックパレットに「Tello」カテゴリが表示されていることを確認します。</li>
-      </ul>
-      <div class="tip">接続が不安定な場合は、Tello を再起動し、近距離でテストしてください。</div>
-      <div class="tip">「接続する（につなぐ）」ブロックは <strong>真偽値</strong> ブロックとして動作し、接続が成功すると <strong>true</strong> を返します。実行直後に条件判定に入れることで、接続できたかを即座にチェックできます。</div>
-    </section>
-
-    <section>
-      <h2>基本ブロック</h2>
-      <ul class="block-list">
-        <li><strong>接続する</strong><br> Tello と接続を開始します。<em>真偽値</em> ブロックなので、<code>true</code> が返ってきたら接続完了です。</li>
-        <li><strong>離陸</strong><br> Tello が自動で離陸しホバリングします。</li>
-        <li><strong>着陸</strong><br> 安全に着陸させます。バッテリー残量が少ない時は早めに実行してください。</li>
-        <li><strong>前／後／左／右／上／下 に動く (cm)</strong><br> 指定した距離だけ直線移動します。20〜500 の範囲が目安です。</li>
-        <li><strong>時計回り／反時計回りに回る (°)</strong><br> 機体をその場で回転させます。角度は 1〜360° を推奨。</li>
-        <li><strong>速度を (cm/s) にする</strong><br> 移動コマンドのスピードを設定します。</li>
-      </ul>
-    </section>
-
-    <section>
-      <h2>ステータス系ブロック</h2>
-      <ul class="block-list">
-        <li><strong>バッテリー %</strong><br> 現在のバッテリー残量を取得します。低い場合は飛行を控えます。</li>
-        <li><strong>高度 (cm)</strong><br> 離陸地点からの高さを取得します。</li>
-        <li><strong>温度 (℃)</strong><br> モーター温度を取得します。高温時は休ませてください。</li>
-        <li><strong>速度 (cm/s)</strong><br> 現在の移動速度を取得します。</li>
-      </ul>
-    </section>
-
-    <section>
-      <h2>よく使うプログラム例</h2>
-      <h3>1. 基本フライト</h3>
-      <ul>
-        <li>「接続する」→「離陸」→「前に動く 50cm」→「時計回りに回る 90°」→「着陸」</li>
-      </ul>
-
-      <h3>2. 四角形に飛行する</h3>
-      <ul>
-        <li>繰り返し 4 回、前へ 80cm → 右回転 90° を組み合わせて、矩形飛行を実現します。</li>
-      </ul>
-
-      <h3>3. 安全確認ルーチン</h3>
-      <ul>
-        <li>飛行前に「バッテリー %」が 30 以上かチェックし、条件を満たさない場合は「着陸」に分岐します。</li>
-      </ul>
-    </section>
-
-    <section class="images">
-      <h2>用意してほしい画像リスト</h2>
-      <p>こちらで画像を作成いただくために、具体的な素材の種類を列挙しています。比率は 16:9 または 4:3 程度、解像度は横 1200px 以上が目安です。</p>
-      <ul>
-        <li>
-          <strong>Scratch エディター全体（Tello 拡張を追加済み）</strong><br>
-          Tello カテゴリがブロックパレットに表示されていることが分かる全体キャプチャ。
-        </li>
-        <li>
-          <strong>Tello ブロック一覧の拡大</strong><br>
-          ブロックパレットの Tello セクションをアップで撮影。各ブロックの名称が読める解像度だと助かります。
-        </li>
-        <li>
-          <strong>基本フライトのスクリプト例</strong><br>
-          「接続する → 離陸 → 前に動く 50cm → 時計回りに回る 90° → 着陸」を組んだプロジェクト画面。
-        </li>
-        <li>
-          <strong>四角形飛行のスクリプト例</strong><br>
-          「繰り返し 4 回」の中で前進と 90° 回転を組み合わせたプログラムのキャプチャ。
-        </li>
-        <li>
-          <strong>安全確認スクリプト例</strong><br>
-          「バッテリー %」で 30 以上を判定し、条件を満たさなければ「着陸」する分岐を含むプログラム。
-        </li>
-        <li>
-          <strong>Tello 本体の写真</strong><br>
-          室内での静止状態と、可能なら低高度でホバリングしている様子の 2 枚。
-        </li>
-      </ul>
-      <h3>提供済みのファイル名メモ</h3>
-      <ul>
-        <li>1-1: image01</li>
-        <li>1-2: image02-1 / image02-2 / image02-3</li>
-        <li>2-3: image03</li>
-        <li>2-4: image04</li>
-        <li>2-5: image05</li>
-        <li>3-6〜8: （ハードウェア系は未提供）</li>
-        <li>4-9: image09</li>
-      </ul>
-
-      <h3>提供済みの画像ギャラリー</h3>
-      <div class="image-grid">
-        <figure class="image-card">
+      <h2>準備と接続の流れ</h2>
+      <div class="two-col">
+        <div>
+          <ul>
+            <li>パソコンと Tello を同じ Wi-Fi（Tello のアクセスポイント）に接続します。</li>
+            <li>Scratch3 Tello 拡張を追加し、ブロックパレットに「Tello」カテゴリが表示されていることを確認します。</li>
+            <li>最初に <strong>接続する</strong> ブロックを置き、<code>true</code> が返ってきたことを条件分岐で確認すると安心です。</li>
+          </ul>
+          <div class="tip">接続が不安定な場合は、Tello を再起動し、近距離でテストしてください。</div>
+          <div class="tip">「接続する（につなぐ）」ブロックは <strong>真偽値</strong> ブロックとして動作し、成功時は <strong>true</strong> を返します。接続チェックの条件にそのまま利用できます。</div>
+        </div>
+        <figure class="figure-card">
           <img src="./image/image01.png" alt="Scratch エディター全体（Tello 拡張を追加済み）">
           <figcaption>Scratch エディター全体。Tello 拡張が追加され、ブロックパレットに Tello カテゴリが表示された状態の全景です。</figcaption>
         </figure>
-        <figure class="image-card">
-          <img src="./image/image02-1.png" alt="Tello ブロック一覧の拡大 1">
-          <figcaption>Tello ブロック一覧（その1）。ブロックパレットの Tello セクションを拡大したキャプチャです。</figcaption>
-        </figure>
-        <figure class="image-card">
-          <img src="./image/image02-2.png" alt="Tello ブロック一覧の拡大 2">
-          <figcaption>Tello ブロック一覧（その2）。ステータス系ブロックを中心に確認できます。</figcaption>
-        </figure>
-        <figure class="image-card">
-          <img src="./image/image02-3.png" alt="Tello ブロック一覧の拡大 3">
-          <figcaption>Tello ブロック一覧（その3）。フライト操作ブロックの詳細を確認できます。</figcaption>
-        </figure>
-        <figure class="image-card">
-          <img src="./image/image03.png" alt="基本フライトのスクリプト例">
-          <figcaption>基本フライトのスクリプト例。「接続する → 離陸 → 前に動く 50cm → 時計回りに回る 90° → 着陸」を組んだ構成です。</figcaption>
-        </figure>
-        <figure class="image-card">
-          <img src="./image/image04.png" alt="四角形飛行のスクリプト例">
-          <figcaption>四角形飛行のスクリプト例。繰り返し 4 回の中で前進と 90° 回転を組み合わせています。</figcaption>
-        </figure>
-        <figure class="image-card">
-          <img src="./image/image05.png" alt="安全確認スクリプト例">
-          <figcaption>安全確認スクリプト例。バッテリー残量を条件分岐で確認し、30% 未満なら着陸するロジックです。</figcaption>
-        </figure>
-        <figure class="image-card">
-          <img src="./image/image09.png" alt="Tello 本体の写真">
-          <figcaption>Tello 本体の写真。機体の外観が分かるショットで、資料や説明に利用できます。</figcaption>
+      </div>
+    </section>
+
+    <section>
+      <h2>Tello ブロックの見方</h2>
+      <div class="two-col">
+        <div>
+          <h3>基本ブロック</h3>
+          <ul class="guide-grid">
+            <li class="guide-card"><strong>接続する</strong> — Tello と通信を開始し、成功すると <code>true</code> を返します。</li>
+            <li class="guide-card"><strong>離陸 / 着陸</strong> — 安全に離着陸を実行します。バッテリーが少ないときは早めの着陸を。</li>
+            <li class="guide-card"><strong>前／後／左／右／上／下 に動く (cm)</strong> — 20〜500cm を目安に直線移動します。</li>
+            <li class="guide-card"><strong>時計回り／反時計回りに回る (°)</strong> — その場で回転。1〜360° が推奨です。</li>
+            <li class="guide-card"><strong>速度を (cm/s) にする</strong> — 移動速度を調整します。狭い室内では低めに設定しましょう。</li>
+          </ul>
+        </div>
+        <figure class="figure-card">
+          <img src="./image/image02-3.png" alt="Tello ブロック一覧（フライト操作）">
+          <figcaption>フライト操作系ブロックの拡大。移動距離や角度を入力して飛行をコントロールします。</figcaption>
         </figure>
       </div>
+      <div class="two-col" style="margin-top: 18px;">
+        <div>
+          <h3>ステータス系ブロック</h3>
+          <ul class="guide-grid">
+            <li class="guide-card"><strong>バッテリー %</strong> — 現在のバッテリー残量を取得。30% 未満なら飛行を控えます。</li>
+            <li class="guide-card"><strong>高度 (cm)</strong> — 離陸地点からの高さを取得します。</li>
+            <li class="guide-card"><strong>温度 (℃)</strong> — モーター温度を確認。高温時は休ませてください。</li>
+            <li class="guide-card"><strong>速度 (cm/s)</strong> — 現在の移動速度を取得します。</li>
+          </ul>
+        </div>
+        <figure class="figure-card">
+          <img src="./image/image02-2.png" alt="Tello ブロック一覧（ステータス系）">
+          <figcaption>ステータス系ブロックの拡大。飛行前の安全確認に役立つセンサー情報が取得できます。</figcaption>
+        </figure>
+      </div>
+      <div class="tip">ブロックパレットは「Tello」カテゴリを開くとフライト操作・ステータス情報がまとまって表示されます。下記の拡大画像も参考にしてください。</div>
+      <figure class="figure-card">
+        <img src="./image/image02-1.png" alt="Tello ブロック一覧の拡大">
+        <figcaption>Tello ブロック一覧（全体）。各ブロックの並び位置がひと目で分かります。</figcaption>
+      </figure>
+    </section>
+
+    <section>
+      <h2>よく使うプログラム例と完成イメージ</h2>
+      <div class="two-col">
+        <div>
+          <h3>1. 基本フライト</h3>
+          <ul>
+            <li>接続 → 離陸 → 前に動く 50cm → 時計回り 90° → 着陸。</li>
+            <li>初めて飛ばすときや室内テストに適した最小構成です。</li>
+          </ul>
+        </div>
+        <figure class="figure-card">
+          <img src="./image/image03.png" alt="基本フライトのスクリプト例">
+          <figcaption>基本フライトのスクリプト例。最低限の操作で Tello の挙動を確認できます。</figcaption>
+        </figure>
+      </div>
+      <div class="two-col" style="margin-top: 18px;">
+        <div>
+          <h3>2. 四角形に飛行する</h3>
+          <ul>
+            <li>繰り返し 4 回、前へ 80cm → 右回転 90° を組み合わせて矩形飛行を作ります。</li>
+            <li>ループと回転の練習に最適で、コース飛行の基本になります。</li>
+          </ul>
+        </div>
+        <figure class="figure-card">
+          <img src="./image/image04.png" alt="四角形飛行のスクリプト例">
+          <figcaption>四角形飛行のスクリプト例。ループを使って一定パターンの飛行を自動化しています。</figcaption>
+        </figure>
+      </div>
+      <div class="two-col" style="margin-top: 18px;">
+        <div>
+          <h3>3. 安全確認ルーチン</h3>
+          <ul>
+            <li>飛行前に <strong>バッテリー %</strong> が 30 以上か判定し、満たさなければ即座に着陸します。</li>
+            <li>温度や高度の情報も組み合わせると、より安全なチェックリストを作成できます。</li>
+          </ul>
+        </div>
+        <figure class="figure-card">
+          <img src="./image/image05.png" alt="安全確認スクリプト例">
+          <figcaption>安全確認スクリプト例。条件分岐で安全基準を満たさない場合は着陸に退避します。</figcaption>
+        </figure>
+      </div>
+    </section>
+
+    <section>
+      <h2>Tello 本体のイメージ</h2>
+      <p>教材や発表スライドに使いやすい機体の写真です。ホバリング写真を追加すると、飛行中の様子も説明しやすくなります。</p>
+      <figure class="figure-card">
+        <img src="./image/image09.png" alt="Tello 本体の写真">
+        <figcaption>Tello 本体の写真。機体の外観が分かるショットです。</figcaption>
+      </figure>
     </section>
   </main>
 
