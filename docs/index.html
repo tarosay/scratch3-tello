@@ -69,6 +69,32 @@
     .images ul {
       list-style: disc;
     }
+    .image-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+      gap: 18px;
+      margin-top: 20px;
+    }
+    .image-card {
+      border: 1px solid #e4ebf3;
+      border-radius: 10px;
+      overflow: hidden;
+      background: #fdfefe;
+      box-shadow: 0 6px 18px rgba(0,0,0,0.05);
+      display: flex;
+      flex-direction: column;
+    }
+    .image-card img {
+      width: 100%;
+      height: auto;
+      display: block;
+    }
+    .image-card figcaption {
+      padding: 12px 14px 14px;
+      font-size: 0.95rem;
+      color: #333;
+      line-height: 1.5;
+    }
     .tip {
       background: #e7f5ff;
       border-left: 4px solid #00a9e0;
@@ -181,6 +207,42 @@
         <li>3-6〜8: （ハードウェア系は未提供）</li>
         <li>4-9: image09</li>
       </ul>
+
+      <h3>提供済みの画像ギャラリー</h3>
+      <div class="image-grid">
+        <figure class="image-card">
+          <img src="./image/image01.png" alt="Scratch エディター全体（Tello 拡張を追加済み）">
+          <figcaption>Scratch エディター全体。Tello 拡張が追加され、ブロックパレットに Tello カテゴリが表示された状態の全景です。</figcaption>
+        </figure>
+        <figure class="image-card">
+          <img src="./image/image02-1.png" alt="Tello ブロック一覧の拡大 1">
+          <figcaption>Tello ブロック一覧（その1）。ブロックパレットの Tello セクションを拡大したキャプチャです。</figcaption>
+        </figure>
+        <figure class="image-card">
+          <img src="./image/image02-2.png" alt="Tello ブロック一覧の拡大 2">
+          <figcaption>Tello ブロック一覧（その2）。ステータス系ブロックを中心に確認できます。</figcaption>
+        </figure>
+        <figure class="image-card">
+          <img src="./image/image02-3.png" alt="Tello ブロック一覧の拡大 3">
+          <figcaption>Tello ブロック一覧（その3）。フライト操作ブロックの詳細を確認できます。</figcaption>
+        </figure>
+        <figure class="image-card">
+          <img src="./image/image03.png" alt="基本フライトのスクリプト例">
+          <figcaption>基本フライトのスクリプト例。「接続する → 離陸 → 前に動く 50cm → 時計回りに回る 90° → 着陸」を組んだ構成です。</figcaption>
+        </figure>
+        <figure class="image-card">
+          <img src="./image/image04.png" alt="四角形飛行のスクリプト例">
+          <figcaption>四角形飛行のスクリプト例。繰り返し 4 回の中で前進と 90° 回転を組み合わせています。</figcaption>
+        </figure>
+        <figure class="image-card">
+          <img src="./image/image05.png" alt="安全確認スクリプト例">
+          <figcaption>安全確認スクリプト例。バッテリー残量を条件分岐で確認し、30% 未満なら着陸するロジックです。</figcaption>
+        </figure>
+        <figure class="image-card">
+          <img src="./image/image09.png" alt="Tello 本体の写真">
+          <figcaption>Tello 本体の写真。機体の外観が分かるショットで、資料や説明に利用できます。</figcaption>
+        </figure>
+      </div>
     </section>
   </main>
 
