@@ -3,237 +3,360 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Scratch3 Tello ブロック解説</title>
+  <title>Scratch3 Tello ブロック解説ガイド</title>
   <style>
+    /* --- Base Styles --- */
+    :root {
+      --primary-color: #00a9e0; /* Tello Blue-ish */
+      --primary-dark: #005ea5;
+      --accent-color: #ffcd00; /* Scratch Orange-ish */
+      --text-color: #333;
+      --bg-color: #f4f7fa;
+      --card-bg: #ffffff;
+      --border-radius: 12px;
+      --shadow: 0 4px 20px rgba(0, 0, 0, 0.06);
+    }
+
     body {
-      font-family: "Noto Sans JP", system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
-      line-height: 1.7;
+      font-family: "Noto Sans JP", "Helvetica Neue", Arial, sans-serif;
+      line-height: 1.6;
       margin: 0;
       padding: 0;
-      color: #222;
-      background: #f8f9fb;
+      color: var(--text-color);
+      background: var(--bg-color);
     }
+
+    /* --- Header --- */
     header {
-      background: linear-gradient(120deg, #00a9e0, #005ea5);
+      background: linear-gradient(135deg, var(--primary-color), var(--primary-dark));
       color: #fff;
-      padding: 48px 24px 32px;
+      padding: 60px 20px;
       text-align: center;
+      box-shadow: 0 2px 10px rgba(0,0,0,0.1);
     }
     header h1 {
-      margin: 0 0 12px;
-      font-size: 2.2rem;
-      letter-spacing: 0.03em;
+      margin: 0 0 10px;
+      font-size: 2rem;
+      font-weight: 700;
     }
     header p {
       margin: 0;
-      font-size: 1.05rem;
+      font-size: 1.1rem;
+      opacity: 0.9;
     }
+
+    /* --- Main Layout --- */
     main {
-      max-width: 1100px;
-      margin: -24px auto 0;
+      max-width: 1000px;
+      margin: -40px auto 0;
       padding: 0 20px 60px;
+      position: relative;
+      z-index: 10;
     }
+
     section {
-      background: #fff;
-      border-radius: 14px;
-      box-shadow: 0 10px 30px rgba(0,0,0,0.08);
-      padding: 26px;
-      margin-top: 28px;
+      background: var(--card-bg);
+      border-radius: var(--border-radius);
+      box-shadow: var(--shadow);
+      padding: 40px;
+      margin-bottom: 40px;
     }
+
     h2 {
+      color: var(--primary-dark);
+      font-size: 1.6rem;
+      border-bottom: 2px solid #eef2f6;
+      padding-bottom: 10px;
       margin-top: 0;
-      color: #005ea5;
-      font-size: 1.5rem;
+      margin-bottom: 30px;
     }
+
     h3 {
-      color: #005ea5;
-      margin-bottom: 12px;
-      font-size: 1.15rem;
+      color: var(--primary-dark);
+      font-size: 1.25rem;
+      margin-bottom: 15px;
+      display: flex;
+      align-items: center;
     }
+    h3::before {
+      content: '';
+      display: inline-block;
+      width: 6px;
+      height: 24px;
+      background: var(--primary-color);
+      margin-right: 10px;
+      border-radius: 3px;
+    }
+
+    /* --- Components --- */
     ul {
-      padding-left: 1.2rem;
+      padding-left: 1.4rem;
     }
-    .two-col {
-      display: grid;
-      grid-template-columns: 1.1fr 0.9fr;
-      gap: 24px;
-      align-items: start;
+    li {
+      margin-bottom: 0.5rem;
     }
-    .guide-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-      gap: 18px;
-      margin-top: 16px;
-      list-style: none;
-      padding-left: 0;
-    }
-    .guide-card {
-      border: 1px solid #e4ebf3;
-      border-radius: 12px;
-      padding: 16px;
-      background: #fdfefe;
-      display: grid;
-      grid-template-columns: 1fr;
-      gap: 12px;
-    }
-    .guide-card strong { color: #0b4f6c; }
-    .figure-card {
-      border: 1px solid #e4ebf3;
-      border-radius: 12px;
-      overflow: hidden;
-      background: #fdfefe;
-      box-shadow: 0 6px 18px rgba(0,0,0,0.05);
-    }
-    .figure-card img {
-      width: 100%;
-      height: auto;
-      display: block;
-    }
-    .figure-card figcaption {
-      padding: 12px 14px 14px;
-      font-size: 0.95rem;
-      color: #333;
-      line-height: 1.5;
-    }
+
     .tip {
-      background: #e7f5ff;
-      border-left: 4px solid #00a9e0;
-      padding: 12px 14px;
+      background: #eaf6ff;
+      border-left: 5px solid var(--primary-color);
+      padding: 15px;
+      border-radius: 4px;
+      margin: 20px 0;
+      font-size: 0.95rem;
+      color: #004a80;
+    }
+    .tip strong {
+      color: #005ea5;
+    }
+
+    /* --- Image & Figure Styling --- */
+    .figure-card {
+      background: #fff;
+      border: 1px solid #eef2f6;
       border-radius: 8px;
-      margin: 12px 0;
-      color: #0b4f6c;
+      overflow: hidden;
+      margin: 0;
+      text-align: center; /* 画像を中央寄せ */
+      transition: transform 0.2s;
     }
-    footer {
-      text-align: center;
+    .figure-card:hover {
+      border-color: var(--primary-color);
+    }
+    
+    .figure-card img {
+      display: block;
+      margin: 0 auto;
+      height: auto;
+      /* 重要: 画像が親要素より大きくならないようにするが、小さすぎる場合は元のサイズを維持 */
+      max-width: 100%; 
+      /* 大きすぎる画像への対策 */
+      max-height: 500px; 
+      object-fit: contain;
+    }
+
+    /* 縦長のブロック画像用の調整クラス */
+    .img-tall img {
+      max-width: 200px; /* 縦長画像は幅を制限して巨大化を防ぐ */
+      width: 100%;
+    }
+
+    /* 横長のスクリーンショット用の調整クラス */
+    .img-wide img {
+      width: 100%;
+      max-width: 800px;
+    }
+
+    .figure-card figcaption {
+      padding: 12px;
+      font-size: 0.85rem;
       color: #666;
-      font-size: 0.9rem;
-      padding: 24px 0 12px;
+      background: #fafbfc;
+      border-top: 1px solid #eef2f6;
+      text-align: left;
     }
-    @media (max-width: 900px) {
-      .two-col { grid-template-columns: 1fr; }
+
+    /* --- Grid Layouts --- */
+
+    /* 2カラムレイアウト（説明 + 画像） */
+    .two-col-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 30px;
+      align-items: start;
+      margin-bottom: 30px;
+    }
+
+    /* 縦長画像を並べるためのグリッド */
+    .blocks-gallery {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 20px;
+      margin-top: 20px;
+    }
+
+    /* プログラム例のグリッド */
+    .program-grid {
+      display: grid;
+      grid-template-columns: 1fr 300px; /* 画像エリアを固定幅気味に */
+      gap: 30px;
+      margin-bottom: 40px;
+      align-items: center;
+      border-bottom: 1px solid #eee;
+      padding-bottom: 30px;
+    }
+    .program-grid:last-child {
+      border-bottom: none;
+      padding-bottom: 0;
+      margin-bottom: 0;
+    }
+
+    /* --- Responsive Adjustments --- */
+    @media (max-width: 768px) {
+      header {
+        padding: 40px 20px;
+      }
+      main {
+        padding: 0 15px 40px;
+      }
+      section {
+        padding: 25px;
+      }
+      h1 { font-size: 1.6rem; }
+      
+      .two-col-grid,
+      .program-grid {
+        grid-template-columns: 1fr; /* スマホでは1カラム */
+      }
+      
+      .program-grid > div:first-child {
+        order: 2; /* 画像を下に、説明を上に（必要に応じて変更） */
+      }
+      
+      .program-grid {
+        gap: 15px;
+      }
+      
+      /* スマホでは画像を少し大きく見せる */
+      .img-tall img {
+        max-width: 100%;
+        max-height: 400px;
+      }
     }
   </style>
 </head>
 <body>
+
   <header>
-    <h1>Scratch3 Tello ブロックの使い方</h1>
-    <p>DJI Tello を Scratch3.0 から操作するための拡張ブロックの一覧と使い方をまとめました。</p>
+    <h1>Scratch3 Tello ブロック使い方ガイド</h1>
+    <p>DJI Tello を Scratch3.0 から操作するための拡張ブロック一覧と活用レシピ</p>
   </header>
 
   <main>
+    <!-- Section 1: 準備 -->
     <section>
-      <h2>準備と接続の流れ</h2>
-      <div class="two-col">
+      <h2>1. 準備と接続の流れ</h2>
+      
+      <div class="two-col-grid">
+        <!-- 説明テキスト -->
         <div>
+          <p>まずはじめに、ドローンとPCを接続してScratchの準備を整えます。</p>
           <ul>
-            <li>パソコンと Tello を同じ Wi-Fi（Tello のアクセスポイント）に接続します。</li>
-            <li>Scratch3 Tello 拡張を追加し、ブロックパレットに「Tello」カテゴリが表示されていることを確認します。</li>
-            <li>左下の拡張アイコンから <strong>Tello</strong> を選ぶと拡張が追加され、ブロックパレットに Tello のカテゴリが現れます。</li>
-            <li>最初に <strong>接続する</strong> ブロックを置き、<code>true</code> が返ってきたことを条件分岐で確認すると安心です。</li>
+            <li>パソコンのWi-Fi設定で、Telloのアクセスポイント（TELLO-XXXXXX）に接続します。</li>
+            <li>Scratchエディター左下の「拡張機能を追加」ボタンをクリックします。</li>
+            <li>一覧から <strong>Tello</strong> を選択し、ブロックパレットに追加します。</li>
           </ul>
-          <div class="tip">接続が不安定な場合は、Tello を再起動し、近距離でテストしてください。</div>
-          <div class="tip">「接続する（につなぐ）」ブロックは <strong>真偽値</strong> ブロックとして動作し、成功時は <strong>true</strong> を返します。接続チェックの条件にそのまま利用できます。</div>
+          
+          <div class="tip">
+            <strong>Point:</strong> 最初に「接続する」ブロックを配置し、実行して成功（true）することを確認してからプログラミングを始めましょう。
+          </div>
         </div>
-        <figure class="figure-card">
-          <img src="./image/image01.png" alt="Scratch エディター全体（Tello 拡張を追加済み）">
-          <figcaption>Scratch エディター全体。Tello 拡張が追加され、ブロックパレットに Tello カテゴリが表示された状態の全景です。</figcaption>
+
+        <!-- 画像：拡張機能追加 -->
+        <figure class="figure-card img-wide">
+          <img src="./image/image09.png" alt="拡張機能の追加画面">
+          <figcaption>左下の拡張アイコンから Tello をクリックしてカテゴリを追加します。</figcaption>
         </figure>
-        <figure class="figure-card">
-          <img src="./image/image09.png" alt="拡張機能の追加手順（Tello アイコンをクリック）">
-          <figcaption>拡張機能の追加手順。左下の拡張アイコンから Tello をクリックしてカテゴリを追加します。</figcaption>
+      </div>
+
+      <!-- 画像：エディタ全体（幅広なのでカラムの外に配置） -->
+      <div style="margin-top: 20px;">
+        <figure class="figure-card img-wide">
+          <img src="./image/image01.png" alt="Scratch エディター全体">
+          <figcaption>Tello 拡張が追加され、ブロックパレットに緑色のTelloカテゴリが表示された状態です。</figcaption>
         </figure>
       </div>
     </section>
 
+    <!-- Section 2: ブロック解説 -->
     <section>
-      <h2>Tello ブロックの見方</h2>
-      <div class="two-col">
-        <div>
-          <h3>基本ブロック</h3>
-          <ul class="guide-grid">
-            <li class="guide-card"><strong>接続する</strong> — Tello と通信を開始し、成功すると <code>true</code> を返します。</li>
-            <li class="guide-card"><strong>離陸 / 着陸</strong> — 安全に離着陸を実行します。バッテリーが少ないときは早めの着陸を。</li>
-            <li class="guide-card"><strong>前／後／左／右／上／下 に動く (cm)</strong> — 20〜500cm を目安に直線移動します。</li>
-            <li class="guide-card"><strong>時計回り／反時計回りに回る (°)</strong> — その場で回転。1〜360° が推奨です。</li>
-            <li class="guide-card"><strong>速度を (cm/s) にする</strong> — 移動速度を調整します。狭い室内では低めに設定しましょう。</li>
-          </ul>
-        </div>
-        <figure class="figure-card">
-          <img src="./image/image02-1.png" alt="Tello 基本ブロック一覧（前半）">
-          <img src="./image/image02-2.png" alt="Tello 基本ブロック一覧（後半）">
-          <figcaption>基本ブロックの拡大。image02-1 と image02-2 で接続・離陸・移動などの操作ブロックを確認できます。</figcaption>
+      <h2>2. Tello ブロック一覧</h2>
+      <p>追加されたブロックは大きく分けて「操作系」と「センサー（ステータス）系」の2種類があります。以下の画像でどのようなブロックがあるか確認できます。</p>
+
+      <!-- 3つの縦長画像を並べるギャラリー -->
+      <div class="blocks-gallery">
+        
+        <figure class="figure-card img-tall">
+          <img src="./image/image02-1.png" alt="基本接続・離着陸ブロック">
+          <figcaption><strong>基本操作 1</strong><br>接続、離陸、着陸など、最初に必ず使うブロックです。</figcaption>
         </figure>
-      </div>
-      <div class="two-col" style="margin-top: 18px;">
-        <div>
-          <h3>ステータス系ブロック</h3>
-          <ul class="guide-grid">
-            <li class="guide-card"><strong>バッテリー %</strong> — 現在のバッテリー残量を取得。30% 未満なら飛行を控えます。</li>
-            <li class="guide-card"><strong>高度 (cm)</strong> — 離陸地点からの高さを取得します。</li>
-            <li class="guide-card"><strong>温度 (℃)</strong> — モーター温度を確認。高温時は休ませてください。</li>
-            <li class="guide-card"><strong>速度 (cm/s)</strong> — 現在の移動速度を取得します。</li>
-          </ul>
-        </div>
-        <figure class="figure-card">
-          <img src="./image/image02-3.png" alt="Tello ブロック一覧（ステータス系）">
-          <figcaption>ステータス系ブロックの拡大。飛行前の安全確認に役立つセンサー情報が取得できます。</figcaption>
+
+        <figure class="figure-card img-tall">
+          <img src="./image/image02-2.png" alt="移動・回転ブロック">
+          <figcaption><strong>基本操作 2</strong><br>前後左右への移動や回転、宙返りなどのアクションブロックです。</figcaption>
         </figure>
+
+        <figure class="figure-card img-tall">
+          <img src="./image/image02-3.png" alt="センサー・ステータスブロック">
+          <figcaption><strong>センサー</strong><br>バッテリー残量や高度、温度などの情報を取得する丸いブロックです。</figcaption>
+        </figure>
+
       </div>
-      <div class="tip">ブロックパレットの「Tello」カテゴリには操作ブロックとステータスブロックがまとめて並んでいます。下の拡大図 3 枚はカテゴリ全体を順番に切り出したものなので、必要なブロックを探す際の見取り図として使ってください。</div>
-      <figure class="figure-card">
-        <img src="./image/image02-1.png" alt="Tello ブロック一覧（基本ブロック前半）">
-        <img src="./image/image02-2.png" alt="Tello ブロック一覧（基本ブロック後半）">
-        <img src="./image/image02-3.png" alt="Tello ブロック一覧（ステータス系）">
-        <figcaption>Tello ブロック一覧（全体）。image02-1・image02-2・image02-3 の 3 枚でカテゴリ全体を順番に確認できます。</figcaption>
-      </figure>
+
+      <div class="tip" style="margin-top: 30px;">
+        <strong>使い方のヒント:</strong> 移動ブロックの単位は <code>cm</code>、回転は <code>度</code> です。狭い室内でテストする場合は、移動距離を 20cm〜50cm 程度に小さく設定することをおすすめします。
+      </div>
     </section>
 
+    <!-- Section 3: プログラム例 -->
     <section>
-      <h2>よく使うプログラム例と完成イメージ</h2>
-      <div class="two-col">
+      <h2>3. よく使うプログラム例</h2>
+      
+      <!-- 例1 -->
+      <div class="program-grid">
         <div>
-          <h3>1. 基本フライト</h3>
+          <h3>基本フライト</h3>
+          <p>最も基本的な「離陸して少し動き、着陸する」プログラムです。</p>
           <ul>
-            <li>接続 → 離陸 → 前に動く 50cm → 時計回り 90° → 着陸。</li>
-            <li>初めて飛ばすときや室内テストに適した最小構成です。</li>
+            <li><strong>接続チェック:</strong> 最初に接続を確認します。</li>
+            <li><strong>動作:</strong> 離陸 → 前に50cm進む → 着陸。</li>
           </ul>
+          <p>初めて飛ばすときはこのプログラムで動作確認をしましょう。</p>
         </div>
-        <figure class="figure-card">
-          <img src="./image/image03.png" alt="基本フライトのスクリプト例">
-          <figcaption>基本フライトのスクリプト例。最低限の操作で Tello の挙動を確認できます。</figcaption>
+        <figure class="figure-card img-tall">
+          <img src="./image/image03.png" alt="基本フライトのスクリプト">
+          <figcaption>基本フライト構成</figcaption>
         </figure>
       </div>
-      <div class="two-col" style="margin-top: 18px;">
+
+      <!-- 例2 -->
+      <div class="program-grid">
         <div>
-          <h3>2. 四角形に飛行する</h3>
+          <h3>四角形に飛行する（ループ）</h3>
+          <p>「繰り返し」ブロックを使って、正方形を描くように飛行させます。</p>
           <ul>
-            <li>繰り返し 4 回、前へ 80cm → 右回転 90° を組み合わせて矩形飛行を作ります。</li>
-            <li>ループと回転の練習に最適で、コース飛行の基本になります。</li>
+            <li><strong>4回繰り返す:</strong> 四角形の4辺分繰り返します。</li>
+            <li><strong>中身:</strong> 「前に進む」と「90度回転」をセットにします。</li>
           </ul>
         </div>
-        <figure class="figure-card">
-          <img src="./image/image04.png" alt="四角形飛行のスクリプト例">
-          <figcaption>四角形飛行のスクリプト例。ループを使って一定パターンの飛行を自動化しています。</figcaption>
+        <figure class="figure-card img-tall">
+          <img src="./image/image04.png" alt="四角形飛行のスクリプト">
+          <figcaption>矩形飛行の自動化</figcaption>
         </figure>
       </div>
-      <div class="two-col" style="margin-top: 18px;">
+
+      <!-- 例3 -->
+      <div class="program-grid">
         <div>
-          <h3>3. 安全確認ルーチン</h3>
+          <h3>安全確認ルーチン（バッテリーチェック）</h3>
+          <p>飛行前にバッテリー残量をチェックする安全装置のようなプログラムです。</p>
           <ul>
-            <li>飛行前に <strong>バッテリー %</strong> が 30 以上か判定し、満たさなければ即座に着陸します。</li>
-            <li>温度や高度の情報も組み合わせると、より安全なチェックリストを作成できます。</li>
+            <li><strong>条件分岐:</strong> もしバッテリーが30%未満なら…</li>
+            <li><strong>アクション:</strong> すぐに着陸して終了します。</li>
           </ul>
+          <p>これをメインの処理の前に挟むことで、落下事故を防げます。</p>
         </div>
-        <figure class="figure-card">
-          <img src="./image/image05.png" alt="安全確認スクリプト例">
-          <figcaption>安全確認スクリプト例。条件分岐で安全基準を満たさない場合は着陸に退避します。</figcaption>
+        <figure class="figure-card img-tall">
+          <img src="./image/image05.png" alt="安全確認スクリプト">
+          <figcaption>バッテリー残量ガード</figcaption>
         </figure>
       </div>
+
     </section>
   </main>
 
   <footer>
-    Scratch3 Tello ガイド｜DJI Tello を安全・楽しくプログラミング
+    <p>&copy; Scratch3 Tello ガイド | 安全に楽しくプログラミングしましょう</p>
   </footer>
+
 </body>
 </html>
